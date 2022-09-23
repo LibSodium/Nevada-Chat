@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>client/android/main.qml</file>
+        <file>client/windows/main.qml</file>
+    </qresource>
+</RCC>
