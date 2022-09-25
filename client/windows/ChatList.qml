@@ -30,7 +30,7 @@ Item
             {
                 font.pixelSize: 17
                 text: "Search..."
-                color: "#6D6D6D"
+                color: "#b9b9b9"
                 anchors.fill: parent
                 clip: true
                 verticalAlignment: TextInput.AlignVCenter
@@ -51,8 +51,8 @@ Item
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottomMargin: 5
-        model: 5
         boundsBehavior: Flickable.StopAtBounds
+        model: 5
         delegate: ChatList_Delegate
         {
             width: root.width

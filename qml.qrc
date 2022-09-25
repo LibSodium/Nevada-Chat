@@ -10,6 +10,7 @@
         <file>client/windows/Messanger.qml</file>
         <file>client/windows/LeftMenu.qml</file>
         <file>client/windows/MyProfile.qml</file>
+        <file>client/windows/Message_Delegate.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/images/user_default.png</file>

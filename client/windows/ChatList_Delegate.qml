@@ -5,13 +5,13 @@ Item
 {
     id: root
     height: 65
+    property string chat_key: "7gHytj5goU4"
     property string chat_name: "Example Name Example Name"
     property string last_message: "Example last message that can be very long and need to cut it"
-    property string chat_key: "7gHytj5goU4"
     property string last_mess_time: "22:34"
     property string unreaded_messages: "+1"
-    property bool   is_online: true
-    property alias photo: photo
+    property bool   is_online: false
+    property alias  photo: photo
 
     Rectangle
     {
@@ -48,9 +48,9 @@ Item
             width: 60
             Text
             {
-                color: "#97D2FB"
+                color: is_online ? "#97D2FB" : "grey"
                 anchors.fill: parent
-                text: is_online ? "online" : null
+                text: is_online ? "online" : "offline"
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 16
             }
