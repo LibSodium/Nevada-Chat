@@ -1,4 +1,16 @@
-QT += quick
+QT += quick qml sql network
+
+HEADERS += \
+    client/client.h \
+    client/requests.h \
+    client/responses.h \
+    database.h \
+    serialization/deserializer.h \
+    serialization/serializer.h \
+    server/requests.h \
+    server/responses.h \
+    server/server.h \
+    settings.h
 
 SOURCES += \
         client/client.cpp \
@@ -19,14 +31,4 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += \
-    client/client.h \
-    client/requests.h \
-    client/responses.h \
-    database.h \
-    serialization/deserializer.h \
-    serialization/serializer.h \
-    server/requests.h \
-    server/responses.h \
-    server/server.h \
-    settings.h
+

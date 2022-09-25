@@ -7,6 +7,13 @@ int main(int argc, char **argv)
    QQmlApplicationEngine engine;
    QUrl entry;
 
+   QScreen *screen = app.primaryScreen();
+   QQmlContext *ctx = engine.rootContext();
+   int screen_width = screen->geometry().width();
+   int screen_height = screen->geometry().height();
+   ctx->setContextProperty("screen_width", screen_width);
+   ctx->setContextProperty("screen_height", screen_height);
+
 #ifdef Q_OS_ANDROID
    entry = "qrc:/client/android/main.qml";
 #endif

@@ -2,5 +2,13 @@
     <qresource prefix="/">
         <file>client/android/main.qml</file>
         <file>client/windows/main.qml</file>
+        <file>client/android/ServerUserList.qml</file>
+        <file>client/android/MessangerPage.qml</file>
+        <file>client/windows/MainMenu.qml</file>
+        <file>client/windows/ChatList.qml</file>
+        <file>client/windows/ChatList_Delegate.qml</file>
+        <file>client/windows/Messanger.qml</file>
+        <file>client/windows/LeftMenu.qml</file>
     </qresource>
+    <qresource prefix="/images"/>
 </RCC>

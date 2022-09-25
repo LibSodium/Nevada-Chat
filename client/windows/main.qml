@@ -4,8 +4,12 @@ import QtQuick.Window
 Window
 {
     id: core
-    width: 250
-    height: 250
+    x: 0
+    y: 0
+    width: 900
+    height: 500
+    minimumHeight: 350
+    minimumWidth: 350
     visible: true
-    color: "red"
+    MainMenu {id: main_menu}
 }
