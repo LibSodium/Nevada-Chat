@@ -11,7 +11,8 @@ HEADERS += \
     server/requests.h \
     server/responses.h \
     server/server.h \
-    settings.h
+    settings.h \
+    values.h
 
 SOURCES += \
         client/client.cpp \

@@ -3,10 +3,11 @@ import QtQuick
 Item
 {
     id: root
-    height: text.implicitHeight
+    height: txt.implicitHeight
     property bool mine
     property string message_text: "example text"
     property string owner_name
+    property string time: "00:00"
 
     Component.onCompleted:
     {
@@ -16,8 +17,9 @@ Item
             photo.anchors.rightMargin = 5
             message_background.anchors.right = photo.left
             message_background.anchors.rightMargin = 5
-            text.horizontalAlignment = Text.AlignRight
-            text.anchors.right = message_background.right
+            txt.horizontalAlignment = Text.AlignRight
+            txt.anchors.right = message_background.right
+            message_time.anchors.right = message_background.right
         }
         else
         {
@@ -25,8 +27,9 @@ Item
             photo.anchors.leftMargin = 5
             message_background.anchors.left = photo.right
             message_background.anchors.leftMargin = 5
-            text.horizontalAlignment = Text.AlignLeft
-            text.anchors.left = message_background.left
+            txt.horizontalAlignment = Text.AlignLeft
+            txt.anchors.left = message_background.left
+            message_time.anchors.left = message_background.left
         }
     }
 
@@ -37,26 +40,37 @@ Item
         width: 30
         height: width
     }
+    Text
+    {
+        id: message_time
+        text: time
+        color: "white"
+        anchors.bottom: message_background.top
+        anchors.leftMargin: 7
+        anchors.rightMargin: 7
+        font.pixelSize: 14
+    }
+
     Rectangle
     {
         id: message_background
-        width: text.width + 15
-        height: text.implicitHeight + 5
+        width: txt.width + 10
+        height: txt.implicitHeight + 5
         color: mine ? "#2B5271" : "#264953"
         radius: 10
         Text
         {
-            id: text
+            id: txt
             text: message_text
             font.pixelSize: 15
             anchors.top: parent.top
-            width: text.implicitWidth > (root.width / 2) ? (root.width / 2) : text.implicitWidth + 10
+            width: txt.implicitWidth > (root.width / 2) ? (root.width / 2) : txt.implicitWidth + 10
             color: "white"
             wrapMode: Text.WordWrap
             anchors.leftMargin: 10
             anchors.rightMargin: 10
             topPadding: 5
-            bottomPadding: 10
+            bottomPadding: 5
             onWidthChanged:
             {
 
@@ -64,3 +78,5 @@ Item
         }
     }
 }
+
+

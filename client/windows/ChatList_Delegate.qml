@@ -61,6 +61,7 @@ Item
             id: unreaded
             height: 30
             width: 40
+            visible: unreaded_messages != ""
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.rightMargin: 5
@@ -78,7 +79,7 @@ Item
                     anchors.centerIn: parent
                     text: unreaded_messages
                     color: "#2B2B2B"
-                    font.pixelSize: 17
+                    font.pixelSize: 14
                     font.bold: true
                 }
             }

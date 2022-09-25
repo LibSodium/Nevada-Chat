@@ -10,6 +10,25 @@ Window
     height: 500
     minimumHeight: 350
     minimumWidth: 350
+    visibility: "Maximized"
+    color: "black"
     visible: true
-    MainMenu {id: main_menu}
+
+    StartPage
+    {
+        id: start_page
+        visible: false
+    }
+
+    MainMenu
+    {
+        id: main_menu
+    }
+
+    MyProfile
+    {
+        id: my_profile
+        anchors.fill: parent
+        visible: false
+    }
 }

@@ -9,7 +9,18 @@ Item
     property string chat_name: "Example Name Example Name"
     property string last_seen: "last seen 32 minutes ago"
 
-    function sendMessage()
+    function loadHistory(chat_key)
+    {
+
+    }
+
+    function sendMessage(mess)
+    {
+        if(mess === "") return
+        list_model.append({m_text: mess, m_mine: true})
+    }
+
+    function displayMessage(key, time, mess, mine)
     {
 
     }
@@ -68,35 +79,6 @@ Item
         }
     }
 
-    Component.onCompleted:
-    {
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-        list_model.append({m_mine: true})
-        list_model.append({m_mine: false})
-    }
-
-
     ListView
     {
         id: list_view
@@ -107,14 +89,16 @@ Item
         anchors.topMargin: 5
         anchors.bottomMargin: 5
         bottomMargin: 10
+        topMargin: 20
         model: list_model
-        spacing: 15
+        spacing: 30
         clip: true
         boundsBehavior: Flickable.StopAtBounds
         delegate: Message_Delegate
         {
             width: root.width
             mine: m_mine
+            message_text: m_text
         }
         ListModel {id: list_model}
     }
@@ -147,8 +131,8 @@ Item
             verticalAlignment: TextInput.AlignVCenter
             onAccepted:
             {
+                sendMessage(message_text.text)
                 message_text.clear()
-                sendMessage()
             }
         }
         Item
@@ -174,8 +158,8 @@ Item
                     onExited: parent.color = "grey"
                     onClicked:
                     {
+                        sendMessage(message_text.text)
                         message_text.clear()
-                        sendMessage()
                     }
                 }
             }

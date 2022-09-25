@@ -11,6 +11,7 @@
         <file>client/windows/LeftMenu.qml</file>
         <file>client/windows/MyProfile.qml</file>
         <file>client/windows/Message_Delegate.qml</file>
+        <file>client/windows/StartPage.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/images/user_default.png</file>
