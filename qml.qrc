@@ -9,6 +9,9 @@
         <file>client/windows/ChatList_Delegate.qml</file>
         <file>client/windows/Messanger.qml</file>
         <file>client/windows/LeftMenu.qml</file>
+        <file>client/windows/MyProfile.qml</file>
     </qresource>
-    <qresource prefix="/images"/>
+    <qresource prefix="/images">
+        <file>resources/images/user_default.png</file>
+    </qresource>
 </RCC>

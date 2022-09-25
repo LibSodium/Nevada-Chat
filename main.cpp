@@ -1,5 +1,6 @@
 #include "client/client.h"
 #include "server/server.h"
+#include "client/image_provider.h"
 
 int main(int argc, char **argv)
 {
@@ -13,6 +14,7 @@ int main(int argc, char **argv)
    int screen_height = screen->geometry().height();
    ctx->setContextProperty("screen_width", screen_width);
    ctx->setContextProperty("screen_height", screen_height);
+   qmlRegisterType<ImageProvider>("Backend", 1, 0, "ImageProvider");
 
 #ifdef Q_OS_ANDROID
    entry = "qrc:/client/android/main.qml";

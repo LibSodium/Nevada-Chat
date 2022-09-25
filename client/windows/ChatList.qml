@@ -13,10 +13,44 @@ Item
         anchors.fill: parent
         color: "#3D4357"
     }
+    Item
+    {
+        id: search
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        height: 50
+        Rectangle
+        {
+            anchors.fill: parent
+            anchors.margins: 10
+            radius: 5
+            color: "#292C39"
+            TextInput
+            {
+                font.pixelSize: 17
+                text: "Search..."
+                color: "#6D6D6D"
+                anchors.fill: parent
+                clip: true
+                verticalAlignment: TextInput.AlignVCenter
+                anchors.leftMargin: 30
+                onAccepted:
+                {
+                    focus = false
+                }
+            }
+        }
+    }
+
     ListView
     {
         id: list_view
-        anchors.fill: parent
+        anchors.top: search.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottomMargin: 5
         model: 5
         boundsBehavior: Flickable.StopAtBounds
         delegate: ChatList_Delegate
