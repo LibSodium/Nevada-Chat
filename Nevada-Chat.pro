@@ -3,7 +3,6 @@ QT += quick qml sql network
 HEADERS += \
     client/client.h \
     client/image_provider.h \
-    client/requests.h \
     client/responses.h \
     database.h \
     serialization/deserializer.h \
@@ -17,7 +16,6 @@ HEADERS += \
 SOURCES += \
         client/client.cpp \
         client/image_provider.cpp \
-        client/requests.cpp \
         client/responses.cpp \
         database.cpp \
         main.cpp \

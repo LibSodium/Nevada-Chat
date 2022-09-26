@@ -7,13 +7,14 @@ int main(int argc, char **argv)
    QGuiApplication app(argc, argv);
    QQmlApplicationEngine engine;
    QUrl entry;
-
+   Client::Object = new Client();
    QScreen *screen = app.primaryScreen();
    QQmlContext *ctx = engine.rootContext();
    int screen_width = screen->geometry().width();
    int screen_height = screen->geometry().height();
    ctx->setContextProperty("screen_width", screen_width);
    ctx->setContextProperty("screen_height", screen_height);
+   ctx->setContextProperty("cl", Client::Object);
    qmlRegisterType<ImageProvider>("Backend", 1, 0, "ImageProvider");
 
 #ifdef Q_OS_ANDROID

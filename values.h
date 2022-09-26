@@ -15,7 +15,8 @@ enum Request
 };
 enum Response
 {
-    SignUpResult = 0x001000,
+    Online = 0x001000,
+    SignUpResult,
     LogInResult,
     Connected,
     AcquireUserList,

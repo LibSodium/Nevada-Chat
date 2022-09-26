@@ -14,15 +14,28 @@ Window
     color: "black"
     visible: true
 
+    function logIn()
+    {
+
+    }
+
+    function logOut()
+    {
+
+    }
+
+
     StartPage
     {
         id: start_page
-        visible: false
+        visible: true
+        anchors.centerIn: parent
     }
 
     MainMenu
     {
         id: main_menu
+        visible: false
     }
 
     MyProfile

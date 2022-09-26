@@ -4,7 +4,7 @@
 
 class Deserializer;
 
-class Responses
+struct Responses
 {
 public:
     static void SignUpResult         (Deserializer *read);
