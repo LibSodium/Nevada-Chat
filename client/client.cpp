@@ -7,17 +7,19 @@ Client *Client::Object = nullptr;
 
 Client::Client()
 {
-
+    m_socket = new QTcpSocket();
 }
 
 bool Client::connect()
 {
-
+    m_socket->connectToHost("192.168.0.101", 2222);
+    m_socket->waitForConnected(3000);
+    qDebug() << "lol";
 }
 
 bool Client::reconnect()
 {
-
+    
 }
 
 void Client::disconnect()
@@ -27,69 +29,11 @@ void Client::disconnect()
 
 void Client::onReadyRead()
 {
-    Deserializer *read = new Deserializer(m_socket);
-    int action; read->stream() >> action;
-    switch (action)
-    {
-    case Chat::Response::Online: {qDebug() << "online"; break;}
-    }
-    delete read;
+    
 }
 
 void Client::onDisconnected()
 {
 
-}
-
-
-
-
-
-// === CLIENT REQUESTS ===
-
-void Client::trySignUp(QString login, QString password, QString nick)
-{
-    Serializer(m_socket).stream();
-}
-
-void Client::connectToServer(QString ip, int port)
-{
-    Serializer(m_socket).stream();
-}
-
-
-void Client::tryLogIn(QString login, QString password)
-{
-    Serializer(m_socket).stream();
-}
-
-
-void Client::getUserList(QString my_key)
-{
-    Serializer(m_socket).stream();
-}
-
-
-void Client::getMessageHistory(QString my_key, QString chat_key)
-{
-    Serializer(m_socket).stream();
-}
-
-
-void Client::logOut(QString my_key)
-{
-    Serializer(m_socket).stream();
-}
-
-
-void Client::sendTextMessage(QString my_key, QString chat_key, QString message)
-{
-    Serializer(m_socket).stream();
-}
-
-
-void Client::getUserInfo(QString user_key)
-{
-    Serializer(m_socket).stream();
 }
 

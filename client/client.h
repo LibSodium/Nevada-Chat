@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QTimer>
 #include <QScreen>
 #include <QTcpSocket>
 #include <QQmlContext>
@@ -45,4 +46,3 @@ signals:
 private:
     ~Client() {};
 };
-

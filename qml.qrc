@@ -13,6 +13,7 @@
         <file>client/windows/Message_Delegate.qml</file>
         <file>client/windows/StartPage.qml</file>
         <file>client/windows/CustomTextInput.qml</file>
+        <file>client/windows/ConnectionPage.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/images/user_default.png</file>

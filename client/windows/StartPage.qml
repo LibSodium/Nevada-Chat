@@ -119,11 +119,7 @@ Item
             {
                 var login = login_area.text
                 var password = password_area.text
-                if(sign_in)
-                {
-                    root.visible = false
-                    main_menu.visible = true
-                }
+                sv.disconnect(login)
             }
         }
     }
