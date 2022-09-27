@@ -2,8 +2,6 @@
 #include "server/server.h"
 #include "client/image_provider.h"
 
-#include "server/sv_threads.h"
-
 int main(int argc, char **argv)
 {
    QGuiApplication app(argc, argv);
@@ -20,11 +18,6 @@ int main(int argc, char **argv)
    ctx->setContextProperty("cl", Client::Object);
    ctx->setContextProperty("sv", Server::Object);
    qmlRegisterType<ImageProvider>("Backend", 1, 0, "ImageProvider");
-
-   // TEST ZONE DELETE AFTER TESTING
-   Server::Object->start();
-   
-   // TEST ZONE DELETE AFTER TESTING
 
 #ifdef Q_OS_ANDROID
    entry = "qrc:/client/android/main.qml";

@@ -31,7 +31,8 @@ SOURCES += \
         server/sv_threads.cpp \
         settings.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    databases.qrc
 
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

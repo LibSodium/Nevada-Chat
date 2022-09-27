@@ -5,10 +5,26 @@ Item
 {
     id: root
     property string placeholder_text
-    property string text: login_area.text
+    property string text: text_area.displayText
+    property alias text_area: text_area
+    property bool only_numbers: false
+    property var num_validator: RegularExpressionValidator {regularExpression: /[0-9.]+/}
+    
+    onOnly_numbersChanged: 
+    {
+        if(only_numbers)
+        {
+            text_area.validator = num_validator
+        }
+        else
+        {
+            
+        }
+    }
+    
     TextField
     {
-        id: login_area
+        id: text_area
         anchors.fill: parent
         height: 45
         placeholderTextColor: "#b9b9b9"

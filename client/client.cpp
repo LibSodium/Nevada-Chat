@@ -10,11 +10,19 @@ Client::Client()
     m_socket = new QTcpSocket();
 }
 
-bool Client::connect()
+bool Client::connect(QString ip, int port)
 {
-    m_socket->connectToHost("192.168.0.101", 2222);
-    m_socket->waitForConnected(3000);
-    qDebug() << "lol";
+    m_socket->connectToHost(ip, port);
+    if(m_socket->waitForConnected(500))
+    {
+        QObject::connect(m_socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+        QObject::connect(m_socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 bool Client::reconnect()
@@ -34,6 +42,6 @@ void Client::onReadyRead()
 
 void Client::onDisconnected()
 {
-
+    qDebug() << "disconnected";
 }
 

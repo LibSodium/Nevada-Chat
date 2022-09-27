@@ -13,7 +13,7 @@ class Client : public QObject
 public:
     Client();
     static Client *Object;
-    Q_INVOKABLE bool connect();
+    Q_INVOKABLE bool connect(QString ip, int port);
     Q_INVOKABLE bool reconnect();
     Q_INVOKABLE void disconnect();
 

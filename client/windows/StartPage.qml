@@ -1,11 +1,10 @@
 import QtQuick
-import QtQuick.Controls
 
 Item
 {
     id: root
     width: 500
-    height: sign_in ? 400 : 470
+    height: sign_in ? 380 : 470
     Behavior on height {NumberAnimation{duration: 200}}
     property bool sign_in: true
     Rectangle
@@ -30,6 +29,7 @@ Item
                 anchors.fill: parent
                 onClicked:
                 {
+                    focus = true
                     sign_in = true
                 }
             }
@@ -49,6 +49,7 @@ Item
                 anchors.fill: parent
                 onClicked:
                 {
+                    focus = true
                     sign_in = false
                 }
             }
@@ -95,7 +96,8 @@ Item
             placeholder_text: "Password..."
         }
     }
-    Rectangle
+    
+    CustomButton
     {
         id: sign_in_button
         height: 40
@@ -103,25 +105,7 @@ Item
         anchors.bottomMargin: 30
         anchors.horizontalCenter: parent.horizontalCenter
         width: 160
-        radius: 5
-        color: "grey"
-        Text
-        {
-            anchors.centerIn: parent
-            text: "Apply"
-            color: "white"
-            font.pixelSize: 20
-        }
-        MouseArea
-        {
-            anchors.fill: parent
-            onClicked:
-            {
-                var login = login_area.text
-                var password = password_area.text
-                sv.disconnect(login)
-            }
-        }
+        text: "Sign In"
     }
 }
 

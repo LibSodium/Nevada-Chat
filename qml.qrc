@@ -14,6 +14,8 @@
         <file>client/windows/StartPage.qml</file>
         <file>client/windows/CustomTextInput.qml</file>
         <file>client/windows/ConnectionPage.qml</file>
+        <file>client/windows/CustomButton.qml</file>
+        <file>client/windows/ServerPopup.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/images/user_default.png</file>

@@ -46,23 +46,7 @@ Item
 
     Component.onCompleted:
     {
-        list_model.append({m_name: "Nevada Alexander",
-                           m_key: "5yghfgh",
-                           m_message: "лол кек чебурек",
-                           m_time: "12:32",
-                           m_unreaded: "+12"})
-
-        list_model.append({m_name: "Никита Фомичев",
-                           m_key: "5yghfgh",
-                           m_message: "ну да, посмотрим",
-                           m_time: "12:32",
-                           m_unreaded: ""})
-
-        list_model.append({m_name: "Оксана Гурина",
-                           m_key: "5yghfgh",
-                           m_message: "Спокойной ночи",
-                           m_time: "12:32",
-                           m_unreaded: "+99"})
+        
     }
 
     ListView

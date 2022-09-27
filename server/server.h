@@ -1,7 +1,9 @@
 #pragma once
 
+#include <QDir>
 #include <QObject>
 #include <QTcpServer>
+#include <QStandardPaths>
 
 class SocketThread;
 
@@ -14,6 +16,9 @@ public:
     Q_INVOKABLE bool start(int port = 2222);
     Q_INVOKABLE void stop();
     QMap<qintptr, SocketThread*> device_list;
+    
+    bool reading_data_from_database;
+    bool writing_data_to_database;
     
 public slots:
     void sendData(int descr, QString data);

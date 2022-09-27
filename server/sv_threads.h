@@ -17,6 +17,7 @@ public slots:
     void onReadyRead();
     void onDisconnected();
     void onSendData(QString data);
+    void onlineBroadcast();
     
 signals:
     void sendData(QString data);
@@ -26,4 +27,5 @@ private:
     qintptr m_descriptor;
     QString m_ip;
     QTcpSocket *m_socket;
+    QTimer *m_timer;
 };

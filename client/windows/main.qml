@@ -13,6 +13,8 @@ Window
     visibility: "Maximized"
     color: "black"
     visible: true
+    
+    property bool server_run: false
 
     function logIn()
     {
@@ -25,10 +27,17 @@ Window
     }
 
 
+    ConnectionPage
+    {
+        id: connection_page
+        visible: true
+        anchors.centerIn: parent
+    }
+    
     StartPage
     {
         id: start_page
-        visible: true
+        visible: false
         anchors.centerIn: parent
     }
 

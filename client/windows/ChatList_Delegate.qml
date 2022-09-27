@@ -37,6 +37,7 @@ Item
             anchors.leftMargin: 5
             anchors.verticalCenter: parent.verticalCenter
         }
+        
         Item
         {
             id: online
