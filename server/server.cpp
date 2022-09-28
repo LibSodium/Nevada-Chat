@@ -11,6 +11,7 @@ bool Server::start(int port)
         if(!QDir().exists(database_path)) QDir().mkdir(database_path);
         database_path += "/databases";
         if(!QDir().exists(database_path)) QDir().mkdir(database_path);
+        
         return true;
     }
     else

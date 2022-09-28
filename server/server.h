@@ -24,7 +24,7 @@ public slots:
     void sendData(int descr, QString data);
     void disconnect(int descr);
     void disconnectAll();
-    
+
 private:
     void incomingConnection(qintptr descriptor);
 

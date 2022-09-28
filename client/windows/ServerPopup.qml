@@ -5,6 +5,7 @@ Item
     id: root
     anchors.fill: parent
     property string text
+    property bool closeable: true
     Rectangle
     {
         anchors.fill: parent
@@ -15,6 +16,7 @@ Item
             anchors.fill: parent
             onClicked: 
             {
+                if(!closeable) return
                 root.visible = false
             }
         }

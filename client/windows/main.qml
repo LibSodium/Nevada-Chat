@@ -27,6 +27,19 @@ Window
     }
 
 
+    Connections
+    {
+        target: cl
+        function onConnectionLost()
+        {
+            connection_lost.visible = true
+        }
+        function onConnectionRestored()
+        {
+            connection_lost.visible = false
+        }
+    }
+    
     ConnectionPage
     {
         id: connection_page
@@ -52,5 +65,13 @@ Window
         id: my_profile
         anchors.fill: parent
         visible: false
+    }
+    
+    ServerPopup
+    {
+        id: connection_lost
+        text: "Connection to server lost..."
+        visible: false
+        closeable: false
     }
 }

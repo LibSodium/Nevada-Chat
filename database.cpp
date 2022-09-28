@@ -207,3 +207,26 @@ void Database::writeData(DBPair data)
       qDebug() << "database write data error -> request is empty";
     }
 }
+
+bool Database::checkData(QString request)
+{
+    if(m_query->exec(request))
+    {
+        if(m_query->next())
+        {
+            m_query->clear();
+            return true;
+        }
+        else
+        {
+            m_query->clear();
+            return false;
+        }
+    }
+    else
+    {
+        qDebug() << "database check data error ->" << m_query->lastError().text();
+        m_query->clear();
+        return false;
+    }
+}

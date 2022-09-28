@@ -2,6 +2,9 @@
 #include "server/server.h"
 #include "client/image_provider.h"
 
+#include "database.h"
+
+
 int main(int argc, char **argv)
 {
    QGuiApplication app(argc, argv);
@@ -18,6 +21,9 @@ int main(int argc, char **argv)
    ctx->setContextProperty("cl", Client::Object);
    ctx->setContextProperty("sv", Server::Object);
    qmlRegisterType<ImageProvider>("Backend", 1, 0, "ImageProvider");
+   
+   QString str = "123 456";
+   qDebug() << str.sliced(2) << str.sliced(1, 2);
 
 #ifdef Q_OS_ANDROID
    entry = "qrc:/client/android/main.qml";
@@ -26,7 +32,7 @@ int main(int argc, char **argv)
 #ifdef Q_OS_WIN
    entry = "qrc:/client/windows/main.qml";
 #endif
-
+   
    engine.load(entry);
    return app.exec();
 }

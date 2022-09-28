@@ -29,7 +29,8 @@ public:
   Database(QObject *parent, qint64 thread_id, QString db_name);
   void readData(QString request, QList<QStringList> &result, QStringList values = {});
   void writeData(DBPair data);
-
+  bool checkData(QString request);
+  
 private:
   QSqlDatabase m_database;
   QSqlQuery *m_query;

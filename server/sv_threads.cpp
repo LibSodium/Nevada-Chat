@@ -49,6 +49,6 @@ void SocketThread::onSendData(QString data)
 
 void SocketThread::onlineBroadcast()
 {
-    Serializer(m_socket).stream() << Chat::Response::Online;
+    m_socket->write("$online$");
     m_timer->start(2000);
 }

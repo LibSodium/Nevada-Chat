@@ -6,6 +6,7 @@ HEADERS += \
     client/client.h \
     client/image_provider.h \
     database.h \
+    global.h \
     serialization/deserializer.h \
     serialization/serializer.h \
     server/server.h \
@@ -22,6 +23,7 @@ SOURCES += \
         client/client.cpp \
         client/image_provider.cpp \
         database.cpp \
+        global.cpp \
         main.cpp \
         serialization/deserializer.cpp \
         serialization/serializer.cpp \
