@@ -5,6 +5,8 @@
 #include <QThread>
 #include <QTcpSocket>
 
+class Database;
+
 class SocketThread : public QThread
 {
     Q_OBJECT
@@ -28,4 +30,5 @@ private:
     QString m_ip;
     QTcpSocket *m_socket;
     QTimer *m_timer;
+    Database *m_database;
 };

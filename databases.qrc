@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>db_files/messages.db</file>
-        <file>db_files/users.db</file>
+        <file>db_files/chats.db</file>
     </qresource>
 </RCC>

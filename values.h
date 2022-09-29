@@ -5,9 +5,8 @@ namespace Chat
 enum Request
 {
     TrySignUp = 0x000010,
-    ConnectToServer,
     TryLogIn,
-    GetUserList,
+    GetChatList,
     GetMessageHistory,
     LogOut,
     SendTextMessage,
@@ -18,7 +17,6 @@ enum Response
     Online = 0x001000,
     SignUpResult,
     LogInResult,
-    Connected,
     AcquireUserList,
     AcquireMessageHistory,
     AcquireTextMessage,

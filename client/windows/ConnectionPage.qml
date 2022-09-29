@@ -7,6 +7,7 @@ Item
     height: connect ? 380 : 280
     Behavior on height {NumberAnimation{duration: 200}}
     property bool connect: false
+    
     Rectangle
     {
         id: background

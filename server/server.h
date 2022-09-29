@@ -5,6 +5,7 @@
 #include <QTcpServer>
 #include <QStandardPaths>
 
+class Database;
 class SocketThread;
 
 class Server : public QTcpServer
@@ -16,9 +17,9 @@ public:
     Q_INVOKABLE bool start(int port = 2222);
     Q_INVOKABLE void stop();
     QMap<qintptr, SocketThread*> device_list;
-    
-    bool reading_data_from_database;
-    bool writing_data_to_database;
+    QString database_path;
+    bool reading_data_from_database = false;
+    bool writing_data_to_database = false;
     
 public slots:
     void sendData(int descr, QString data);

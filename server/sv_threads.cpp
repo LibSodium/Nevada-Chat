@@ -1,5 +1,6 @@
 #include "values.h"
 #include "server.h"
+#include "database.h"
 #include "sv_threads.h"
 #include "serialization/serializer.h"
 
@@ -17,21 +18,18 @@ SocketThread::SocketThread(qintptr descriptor)
     m_socket = new QTcpSocket();
     m_socket->setSocketDescriptor(descriptor);
     m_timer = new QTimer();
+    m_timer->setInterval(2000);
     QObject::connect(m_socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     QObject::connect(m_socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+    QObject::connect(m_timer, SIGNAL(timeout()), this, SLOT(onlineBroadcast()));
+    QObject::connect(m_timer, SIGNAL(timeout()), m_timer, SLOT(start()));
     QObject::connect(this, SIGNAL(sendData(QString)), SLOT(onSendData(QString)));
     QObject::connect(this, SIGNAL(disconnectFromServer()), SLOT(onDisconnected()));
     QObject::connect(this, SIGNAL(finished()), SLOT(deleteLater()));
-    QObject::connect(m_timer, SIGNAL(timeout()), this, SLOT(onlineBroadcast()));
-    m_timer->start(2000);
+    m_timer->start();
 }
 
 void SocketThread::run() {exec();}
-
-void SocketThread::onReadyRead()
-{
-    
-}
 
 void SocketThread::onDisconnected()
 {
@@ -50,5 +48,4 @@ void SocketThread::onSendData(QString data)
 void SocketThread::onlineBroadcast()
 {
     m_socket->write("$online$");
-    m_timer->start(2000);
 }

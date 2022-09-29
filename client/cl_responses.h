@@ -9,7 +9,6 @@ struct Responses
 public:
     static void SignUpResult         (Deserializer *read);
     static void LogInResult          (Deserializer *read);
-    static void Connected            (Deserializer *read);
     static void AcquireUserList      (Deserializer *read);
     static void AcquireMessageHistory(Deserializer *read);
     static void AcquireTextMessage   (Deserializer *read);

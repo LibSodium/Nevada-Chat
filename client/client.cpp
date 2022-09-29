@@ -50,21 +50,6 @@ void Client::disconnect()
     
 }
 
-void Client::onReadyRead()
-{
-    if(m_socket->peek(8) == "$online$")
-    {
-        m_socket->readAll(); 
-        emit response();
-        return;
-    }
-    return;
-    Deserializer *read = new Deserializer(m_socket);
-    qDebug() << "read";
-    delete read;
-    emit response();
-}
-
 void Client::onDisconnected()
 {
     

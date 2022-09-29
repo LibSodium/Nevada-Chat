@@ -13,6 +13,7 @@ class Deserializer
 public:
   Deserializer(QIODevice *device);
   QDataStream &stream() {return m_stream;}
+  QIODevice *device() {return m_device;}
   int bytesAvailable() {return m_buffer.bytesAvailable();} // returns how many bytes unread
 
 private:

@@ -90,6 +90,7 @@ QString DB_Requests::select(QString table, QStringList columns, QStringList cond
 {
   QString request = "SELECT ";
   if(columns.isEmpty()) request += "*";
+  
   for(auto &column : columns)
     {
       if(column == columns.last())

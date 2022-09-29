@@ -1,3 +1,4 @@
+#include "global.h"
 #include "server/server.h"
 #include "server/sv_threads.h"
 
@@ -5,13 +6,16 @@ Server *Server::Object = nullptr;
 
 bool Server::start(int port)
 {
-    if(this->listen(QHostAddress::Any, 2222))
+    if(this->listen(QHostAddress::Any, port))
     {
-        QString database_path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+        database_path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
         if(!QDir().exists(database_path)) QDir().mkdir(database_path);
         database_path += "/databases";
-        if(!QDir().exists(database_path)) QDir().mkdir(database_path);
-        
+        if(!QDir().exists(database_path))
+        {
+            QDir().mkdir(database_path);
+            Files::copy(":/db_files", database_path);
+        }
         return true;
     }
     else
@@ -30,7 +34,6 @@ void Server::incomingConnection(qintptr descriptor)
     SocketThread *thread = new SocketThread(descriptor);
     thread->start();
     device_list.insert(descriptor, thread);
-    qDebug() << "connected";
 }
 
 void Server::sendData(int desc, QString data)
@@ -47,5 +50,8 @@ void Server::disconnect(int desc)
 
 void Server::disconnectAll()
 {
-    
+    for(auto &desc : device_list.keys())
+    {
+        emit device_list.value(desc)->disconnectFromServer();
+    }
 }

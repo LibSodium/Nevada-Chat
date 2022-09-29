@@ -4,9 +4,44 @@ Item
 {
     id: root
     width: 500
-    height: sign_in ? 380 : 470
+    height: sign_in ? 380 : 460
     Behavior on height {NumberAnimation{duration: 200}}
     property bool sign_in: true
+    
+    Connections
+    {
+        target: cl
+        function onSignUpResult(key)
+        {
+            if(key === "-1")
+            {
+                login_area.text_area.clear()
+                login_area.border_color = "red"
+                login_area.text_area.focus = true
+            }
+            else
+            {
+                sign_in = true
+            }
+        }
+        function onLogInResult(key, nick)
+        {
+            if(key === "-1")
+            {
+                login_area.text_area.clear()
+                password_area.text_area.clear()
+                login_area.border_color = "red"
+                password_area.border_color = "red"
+            }
+            else
+            {
+                root.visible = false
+                main_menu.visible = true
+                console.debug(key, nick)
+            }
+        }
+    }
+    
     Rectangle
     {
         id: background
@@ -66,6 +101,17 @@ Item
             anchors.rightMargin: 40
             anchors.leftMargin: 40
             placeholder_text: "Login..."
+            onTextChanged: 
+            {
+                if(text != "")
+                {
+                    border_color = "#00FF22"
+                }
+                else
+                {
+                    border_color = "white"
+                }
+            }
         }
 
         CustomTextInput
@@ -81,6 +127,17 @@ Item
             anchors.rightMargin: 40
             anchors.leftMargin: 40
             placeholder_text: "Nickname..."
+            onTextChanged: 
+            {
+                if(text != "")
+                {
+                    border_color = "#00FF22"
+                }
+                else
+                {
+                    border_color = "white"
+                }
+            }
         }
 
         CustomTextInput
@@ -94,6 +151,17 @@ Item
             anchors.rightMargin: 40
             anchors.leftMargin: 40
             placeholder_text: "Password..."
+            onTextChanged: 
+            {
+                if(text != "")
+                {
+                    border_color = "#00FF22"
+                }
+                else
+                {
+                    border_color = "white"
+                }
+            }
         }
     }
     
@@ -105,7 +173,23 @@ Item
         anchors.bottomMargin: 30
         anchors.horizontalCenter: parent.horizontalCenter
         width: 160
-        text: "Sign In"
+        text: sign_in ? "Sign In" : "Sign Up"
+        clickable: true
+        hover: true
+        mouse_area.onClicked: 
+        {
+            var login = login_area.text
+            var password = password_area.text
+            if(!sign_in)
+            {
+                var nick = nickname_area.text
+                cl.trySignUp(login, password, nick)
+            }
+            else
+            {
+                cl.tryLogIn(login, password)
+            }
+        }
     }
 }
 

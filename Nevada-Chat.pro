@@ -11,7 +11,6 @@ HEADERS += \
     serialization/serializer.h \
     server/server.h \
     server/sv_requests.h \
-    server/sv_responses.h \
     server/sv_threads.h \
     settings.h \
     values.h
@@ -29,7 +28,6 @@ SOURCES += \
         serialization/serializer.cpp \
         server/server.cpp \
         server/sv_requests.cpp \
-        server/sv_responses.cpp \
         server/sv_threads.cpp \
         settings.cpp
 

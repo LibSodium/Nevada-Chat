@@ -32,9 +32,8 @@ public slots: // not from qml
     
 public slots: // from qml
     void trySignUp(QString login, QString password, QString nick);
-    void connectToServer(QString ip, int port);
     void tryLogIn(QString login, QString password);
-    void getUserList(QString my_key);
+    void getChatList(QString my_key);
     void getMessageHistory(QString my_key, QString chat_key);
     void logOut(QString my_key);
     void sendTextMessage(QString my_key, QString chat_key, QString message);
@@ -42,7 +41,7 @@ public slots: // from qml
 
 signals: // connected to qml
     void signUpResult(QString key);
-    void logInResult(QString key);
+    void logInResult(QString key, QString nick);
     void connected();
     void acquireUserList(QList<QStringList> data);
     void acquireMessageHistory(QList<QStringList> data);

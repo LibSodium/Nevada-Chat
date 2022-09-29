@@ -3,13 +3,12 @@
 #include "client/image_provider.h"
 
 #include "database.h"
-
+#include "global.h"
 
 int main(int argc, char **argv)
 {
    QGuiApplication app(argc, argv);
    QQmlApplicationEngine engine;
-   QUrl entry;
    Client::Object = new Client();
    Server::Object = new Server();
    QScreen *screen = app.primaryScreen();
@@ -22,9 +21,7 @@ int main(int argc, char **argv)
    ctx->setContextProperty("sv", Server::Object);
    qmlRegisterType<ImageProvider>("Backend", 1, 0, "ImageProvider");
    
-   QString str = "123 456";
-   qDebug() << str.sliced(2) << str.sliced(1, 2);
-
+   QUrl entry;
 #ifdef Q_OS_ANDROID
    entry = "qrc:/client/android/main.qml";
 #endif

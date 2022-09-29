@@ -1,11 +1,8 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#pragma once
 
+#include <QObject>
 
-class settings
+class Settings
 {
-public:
-    settings();
+    
 };
-
-#endif // SETTINGS_H
