@@ -23,7 +23,7 @@ SocketThread::SocketThread(qintptr descriptor)
     QObject::connect(m_socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
     QObject::connect(m_timer, SIGNAL(timeout()), this, SLOT(onlineBroadcast()));
     QObject::connect(m_timer, SIGNAL(timeout()), m_timer, SLOT(start()));
-    QObject::connect(this, SIGNAL(sendData(QString)), SLOT(onSendData(QString)));
+    QObject::connect(this, SIGNAL(sendMessage(QStringList)), SLOT(onSendMessage(QStringList)));
     QObject::connect(this, SIGNAL(disconnectFromServer()), SLOT(onDisconnected()));
     QObject::connect(this, SIGNAL(finished()), SLOT(deleteLater()));
     m_timer->start();
@@ -36,13 +36,14 @@ void SocketThread::onDisconnected()
     m_socket->disconnect();
     m_socket->disconnectFromHost();
     m_timer->stop();
-    Server::Object->device_list.remove(m_descriptor);
+    Server::Object->removeDevice(m_descriptor);
+    Server::Object->removeOnlineUser(m_key);
     exit();
 }
 
-void SocketThread::onSendData(QString data)
+void SocketThread::onSendMessage(QStringList message_data)
 {
-    m_socket->write(data.toUtf8());
+    Serializer(m_socket).stream() << Chat::Response::AcquireTextMessage << message_data;
 }
 
 void SocketThread::onlineBroadcast()

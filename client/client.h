@@ -2,6 +2,7 @@
 
 #include <QTimer>
 #include <QScreen>
+#include <QDateTime>
 #include <QTcpSocket>
 #include <QQmlContext>
 #include <QGuiApplication>
@@ -18,6 +19,7 @@ public:
     static Client *Object;
     Q_INVOKABLE bool connect(QString ip, int port);
     Q_INVOKABLE void disconnect();
+    Q_INVOKABLE QString currentTime(QString format = "dd.MM.yyyy hh:mm:ss");
 
 private:
     QTcpSocket *m_socket;
@@ -38,17 +40,19 @@ public slots: // from qml
     void logOut(QString my_key);
     void sendTextMessage(QString my_key, QString chat_key, QString message);
     void getUserInfo(QString user_key);
+    void getOnlineList();
 
 signals: // connected to qml
     void signUpResult(QString key);
     void logInResult(QString key, QString nick);
     void connected();
-    void acquireUserList(QList<QStringList> data);
+    void acquireChatList(QList<QStringList> data);
     void acquireMessageHistory(QList<QStringList> data);
-    void acquireTextMessage(QString text, QString time, QString owner_key);
+    void acquireTextMessage(QStringList message_data);
     void acquireUserInfo(QStringList data);
     void connectionLost();
     void connectionRestored();
+    void acquireOnlineList(QStringList keys);
     
 signals: // not connected to qml
     void response();

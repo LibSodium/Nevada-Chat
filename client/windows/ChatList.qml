@@ -7,6 +7,27 @@ Item
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     width: 300
+    Connections
+    {
+        target: cl
+        function onAcquireChatList(list)
+        {
+            list_model.append({m_key: my_key, 
+                               m_name: "My Profile", 
+                               m_message: "", 
+                               m_time: "",
+                               m_unreaded: 0})
+            for(var i = 0; i < list.length; i++)
+            {
+                list_model.append({m_key: list[i][0],
+                                   m_name: list[i][1], 
+                                   m_message: "", 
+                                   m_time: "", 
+                                   m_unreaded: 0})
+            }
+        }
+    }
+
     Rectangle
     {
         id: background
@@ -42,11 +63,6 @@ Item
                 }
             }
         }
-    }
-
-    Component.onCompleted:
-    {
-        
     }
 
     ListView

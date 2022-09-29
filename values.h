@@ -10,16 +10,18 @@ enum Request
     GetMessageHistory,
     LogOut,
     SendTextMessage,
-    GetUserInfo
+    GetUserInfo,
+    GetOnlineList
 };
 enum Response
 {
     Online = 0x001000,
     SignUpResult,
     LogInResult,
-    AcquireUserList,
+    AcquireChatList,
     AcquireMessageHistory,
     AcquireTextMessage,
-    AcquireUserInfo
+    AcquireUserInfo,
+    AcquireOnlineList
 };
 }

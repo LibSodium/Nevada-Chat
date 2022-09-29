@@ -6,23 +6,36 @@ Item
 {
     id: root
     property string chat_key
-    property string chat_name: "Example Name Example Name"
+    property string chat_name
     property string last_seen: "last seen 32 minutes ago"
 
+    Connections
+    {
+        target: cl
+        function onAcquireTextMessage(message_data)
+        {
+            var message = message_data[3]
+            var time = message_data[4]
+            list_model.append({m_text: message, m_mine: false, m_time: time})
+        }
+    }
+    
     function loadHistory(chat_key)
     {
-
+        
     }
 
     function sendMessage(mess)
     {
         if(mess === "") return
-        list_model.append({m_text: mess, m_mine: true})
+        var time = cl.currentTime()
+        list_model.append({m_text: mess, m_mine: true, m_time: time})
+        cl.sendTextMessage(my_key, chat_key, mess)
     }
 
-    function displayMessage(key, time, mess, mine)
+    function displayMessage(message_data)
     {
-
+        
     }
 
     function setChat(key, name, chat_photo)
@@ -99,6 +112,7 @@ Item
             width: root.width
             mine: m_mine
             message_text: m_text
+            time: m_time
         }
         ListModel {id: list_model}
     }

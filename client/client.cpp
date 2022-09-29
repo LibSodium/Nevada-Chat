@@ -54,3 +54,6 @@ void Client::onDisconnected()
 {
     
 }
+
+QString Client::currentTime(QString format)
+{return QDateTime::currentDateTime().toString(format);}

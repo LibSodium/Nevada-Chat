@@ -5,6 +5,7 @@
 #include "database.h"
 #include "global.h"
 
+
 int main(int argc, char **argv)
 {
    QGuiApplication app(argc, argv);

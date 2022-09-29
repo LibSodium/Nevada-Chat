@@ -19,5 +19,20 @@ Item
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: parent.top
+        visible: false
+    }
+    Text
+    {
+        id: select_chat
+        anchors.left: chat_list.right
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        text: "Choose a chat to start messaging..."
+        color: "white"
+        font.pixelSize: 20
+        visible: !messanger.visible
     }
 }

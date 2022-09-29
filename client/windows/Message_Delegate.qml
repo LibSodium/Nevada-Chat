@@ -46,8 +46,6 @@ Item
         text: time
         color: "white"
         anchors.bottom: message_background.top
-        anchors.leftMargin: 7
-        anchors.rightMargin: 7
         font.pixelSize: 14
     }
 
@@ -71,10 +69,6 @@ Item
             anchors.rightMargin: 10
             topPadding: 5
             bottomPadding: 5
-            onWidthChanged:
-            {
-
-            }
         }
     }
 }

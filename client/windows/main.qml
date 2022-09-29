@@ -9,13 +9,15 @@ Window
     width: 900
     height: 500
     minimumHeight: 350
-    minimumWidth: 350
+    minimumWidth: 700
     visibility: "Maximized"
     color: "black"
     visible: true
     
     property bool server_run: false
-
+    property string my_key: "0"
+    property var current_online: []
+    
     function logIn()
     {
 
@@ -25,7 +27,18 @@ Window
     {
 
     }
-
+    
+    Timer
+    {
+        id: update_online
+        interval: 1000
+        running: true
+        onTriggered: 
+        {
+            cl.getOnlineList()
+            restart()
+        }
+    }
 
     Connections
     {
@@ -37,6 +50,10 @@ Window
         function onConnectionRestored()
         {
             connection_lost.visible = false
+        }
+        function onAcquireOnlineList(list)
+        {
+            current_online = list
         }
     }
     

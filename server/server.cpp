@@ -33,25 +33,66 @@ void Server::incomingConnection(qintptr descriptor)
 {
     SocketThread *thread = new SocketThread(descriptor);
     thread->start();
-    device_list.insert(descriptor, thread);
-}
-
-void Server::sendData(int desc, QString data)
-{
-    if(!device_list.contains(desc)) return;
-    emit device_list.value(desc)->sendData(data);
+    insertDevice(descriptor, thread);
 }
 
 void Server::disconnect(int desc)
 {
-    if(!device_list.contains(desc)) return;
-    emit device_list.value(desc)->disconnectFromServer();
+    if(!m_device_list.contains(desc)) return;
+    emit m_device_list.value(desc)->disconnectFromServer();
 }
 
 void Server::disconnectAll()
 {
-    for(auto &desc : device_list.keys())
+    for(auto &desc : m_device_list.keys())
     {
-        emit device_list.value(desc)->disconnectFromServer();
+        emit m_device_list.value(desc)->disconnectFromServer();
     }
+}
+
+void Server::insertDevice(int descriptor, SocketThread *device)
+{
+    m_device_list_mutex.lock();
+    m_device_list.insert(descriptor, device);
+    m_device_list_mutex.unlock();
+}
+
+void Server::removeDevice(int descriptor)
+{
+    m_device_list_mutex.lock();
+    if(m_device_list.contains(descriptor))
+        m_device_list.remove(descriptor);
+    m_device_list_mutex.unlock();
+}
+
+SocketThread *Server::getDevice(int descriptor)
+{
+    if(m_device_list.contains(descriptor))
+    {
+        return m_device_list.value(descriptor);
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+void Server::insertOnlineUser(int descriptor, QString key)
+{
+    m_online_list_mutex.lock();
+    m_online_users.insert(key, descriptor);
+    m_online_list_mutex.unlock();
+}
+
+void Server::removeOnlineUser(QString key)
+{
+    m_online_list_mutex.lock();
+    if(m_online_users.contains(key))
+        m_online_users.remove(key);
+    m_online_list_mutex.unlock();
+}
+
+QMap<QString, qintptr> Server::getOnlineList()
+{
+    return m_online_users;
 }

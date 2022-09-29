@@ -31,6 +31,8 @@ public:
   void writeData(DBPair data);
   bool checkData(QString request);
   
+  void changeDatabase(QString db_name) {m_database.setDatabaseName(db_name);}
+  
 private:
   QSqlDatabase m_database;
   QSqlQuery *m_query;

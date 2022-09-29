@@ -35,9 +35,10 @@ Item
             }
             else
             {
+                my_key = key
+                cl.getChatList(my_key)
                 root.visible = false
                 main_menu.visible = true
-                console.debug(key, nick)
             }
         }
     }

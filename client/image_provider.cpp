@@ -55,7 +55,6 @@ void ImageProvider::paint(QPainter *painter)
     QTransform transform(1, 0, 0, 1, scaled.width() / 2 + width() / 2, scaled.height() / 2 + height() / 2);
     QBrush brush(scaled);
     brush.setTransform(transform);
-    painter->setBrush(brush);
-    painter->drawRoundedRect(bounding_rect, m_radius, m_radius);
+    painter->fillRect(bounding_rect, brush);
     setAntialiasing(true);
 }

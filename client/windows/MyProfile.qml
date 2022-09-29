@@ -1,4 +1,5 @@
 import QtQuick
+import Backend
 
 Item
 {
@@ -9,6 +10,14 @@ Item
         anchors.fill: parent
         color: "black"
         opacity: 0.7
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
+            {
+                root.visible = false
+            }
+        }
     }
 
     Rectangle
@@ -19,15 +28,16 @@ Item
         height: 500
         radius: 40
         color: "#3D4357"
-        Rectangle
+        ImageProvider
         {
             radius: 30
-            width: 150
+            width: 250
             height: width
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.topMargin: 25
             anchors.leftMargin: 25
+            source: ":/images/resources/images/user_default.png"
         }
     }
 }

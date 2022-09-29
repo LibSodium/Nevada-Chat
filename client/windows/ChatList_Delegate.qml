@@ -9,10 +9,39 @@ Item
     property string chat_name: "Example Name Example Name"
     property string last_message: "Example last message that can be very long and need to cut it"
     property string last_mess_time: "22:34"
-    property string unreaded_messages: "+1"
+    property int unreaded_messages: 0
     property bool   is_online: false
     property alias  photo: photo
-
+    
+    function checkOnline()
+    {
+        for(var i = 0; i < current_online.length; i++)
+        {
+            if(current_online[i] === chat_key)
+            {
+                is_online = true
+                return
+            }
+            if(i + 1 == current_online.length) 
+            {
+                is_online = false
+            }
+        }
+    }
+    
+    Component.onCompleted: checkOnline()
+    
+    Timer
+    {
+        id: online_check
+        interval: 500
+        running: true
+        onTriggered: 
+        {
+            checkOnline()
+            restart()
+        }
+    }
     Rectangle
     {
         id: background
@@ -24,6 +53,20 @@ Item
             hoverEnabled: true
             onEntered: background.color = "#58617F"
             onExited: background.color = "#3D4357"
+            onClicked: 
+            {
+                if(chat_key == my_key)
+                {
+                    my_profile.visible = true
+                }
+                else
+                {
+                    cl.getMessageHistory(my_key, chat_key)
+                    messanger.visible = true
+                    messanger.chat_key = chat_key
+                    messanger.chat_name = chat_name
+                }
+            }
         }
 
         ImageProvider
@@ -41,6 +84,7 @@ Item
         Item
         {
             id: online
+            visible: chat_key != my_key
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.topMargin: 5
@@ -62,7 +106,7 @@ Item
             id: unreaded
             height: 30
             width: 40
-            visible: unreaded_messages != ""
+            visible: unreaded_messages
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.rightMargin: 5
@@ -78,7 +122,7 @@ Item
                 {
                     id: unreaded_count
                     anchors.centerIn: parent
-                    text: unreaded_messages
+                    text: "+" + unreaded_messages
                     color: "#2B2B2B"
                     font.pixelSize: 14
                     font.bold: true

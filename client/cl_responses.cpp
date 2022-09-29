@@ -17,10 +17,11 @@ void Client::onReadyRead()
     {
     case Chat::Response::SignUpResult:          {Responses::SignUpResult(read); break;}
     case Chat::Response::LogInResult:           {Responses::LogInResult(read); break;}
-    case Chat::Response::AcquireUserList:       {Responses::AcquireUserList(read); break;}
+    case Chat::Response::AcquireChatList:       {Responses::AcquireChatList(read); break;}
     case Chat::Response::AcquireMessageHistory: {Responses::AcquireMessageHistory(read); break;}
     case Chat::Response::AcquireTextMessage:    {Responses::AcquireTextMessage(read); break;}
     case Chat::Response::AcquireUserInfo:       {Responses::AcquireUserInfo(read); break;}
+    case Chat::Response::AcquireOnlineList:     {Responses::AcquireOnlineList(read); break;} 
     default: {qDebug() << "client socket thread -> unknown action triggered:" << action_id; break;}
     }
     delete read;
@@ -41,9 +42,11 @@ void Responses::LogInResult(Deserializer *read)
     emit Client::Object->logInResult(key, nick);
 }
 
-void Responses::AcquireUserList(Deserializer *read)
+void Responses::AcquireChatList(Deserializer *read)
 {
-
+    QList<QStringList> acquired_data;
+    read->stream() >> acquired_data;
+    emit Client::Object->acquireChatList(acquired_data);
 }
 
 void Responses::AcquireMessageHistory(Deserializer *read)
@@ -53,10 +56,19 @@ void Responses::AcquireMessageHistory(Deserializer *read)
 
 void Responses::AcquireTextMessage(Deserializer *read)
 {
-
+    QStringList message_data;
+    read->stream() >> message_data;
+    emit Client::Object->acquireTextMessage(message_data);
 }
 
 void Responses::AcquireUserInfo(Deserializer *read)
 {
 
+}
+
+void Responses::AcquireOnlineList(Deserializer *read)
+{
+    QStringList online_list;
+    read->stream() >> online_list;
+    emit Client::Object->acquireOnlineList(online_list);
 }

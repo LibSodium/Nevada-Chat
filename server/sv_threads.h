@@ -14,15 +14,17 @@ public:
     ~SocketThread();
     SocketThread(qintptr descriptor);
     void run() override;
-
+    QString &key() {return m_key;}
+    qintptr &descriptor() {return m_descriptor;}
+    
 public slots:
     void onReadyRead();
     void onDisconnected();
-    void onSendData(QString data);
+    void onSendMessage(QStringList message_data);
     void onlineBroadcast();
     
 signals:
-    void sendData(QString data);
+    void sendMessage(QStringList message_data);
     void disconnectFromServer();
     
 private:
@@ -31,4 +33,5 @@ private:
     QTcpSocket *m_socket;
     QTimer *m_timer;
     Database *m_database;
+    QString m_key;
 };

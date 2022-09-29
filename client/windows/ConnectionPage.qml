@@ -6,7 +6,7 @@ Item
     width: 500
     height: connect ? 380 : 280
     Behavior on height {NumberAnimation{duration: 200}}
-    property bool connect: false
+    property bool connect: true
     
     Rectangle
     {
@@ -64,10 +64,15 @@ Item
             anchors.top: parent.top
             anchors.topMargin: 130
             anchors.rightMargin: 40
-            text_area.text: "127.0.0.1"
             anchors.leftMargin: 40
             placeholder_text: "Server IP..."
             only_numbers: true
+            text_area.text: "95.31.196.133"
+            text_area.onAccepted: 
+            {
+                server_port.text_area.focus = true
+            }
+
             onTextChanged: 
             {
                 if(server_ip.text != "" && server_port.text != "")
@@ -94,20 +99,25 @@ Item
             Behavior on anchors.topMargin {NumberAnimation{duration: 200}}
             anchors.rightMargin: 40
             anchors.leftMargin: 40
-            placeholder_text: "Server port..."
             text_area.text: "2222"
+            placeholder_text: "Server port..."
             only_numbers: true
             onTextChanged: 
             {
-                if(server_ip.text != "" && server_port.text != "")
+                if(connect && server_ip.text != "" && server_port.text != "")
+                {
+                    connect_button.clickable = true
+                    connect_button.hover = true
+                }
+                else if(!connect && server_port.text != "")
                 {
                     connect_button.clickable = true
                     connect_button.hover = true
                 }
                 else
                 {
-                   connect_button.clickable = false
-                   connect_button.hover = false 
+                    connect_button.clickable = false
+                    connect_button.hover = false 
                 }
             }
         }

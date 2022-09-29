@@ -16,29 +16,34 @@ void Client::tryLogIn(QString login, QString password)
 
 void Client::getChatList(QString my_key)
 {
-    Serializer(m_socket).stream() << Chat::Request::GetChatList;
+    Serializer(m_socket).stream() << Chat::Request::GetChatList << my_key;
 }
 
 
 void Client::getMessageHistory(QString my_key, QString chat_key)
 {
-    Serializer(m_socket).stream() << Chat::Request::GetMessageHistory;
+    Serializer(m_socket).stream() << Chat::Request::GetMessageHistory << my_key << chat_key;
 }
 
 
 void Client::logOut(QString my_key)
 {
-    Serializer(m_socket).stream() << Chat::Request::LogOut;
+    Serializer(m_socket).stream() << Chat::Request::LogOut << my_key;
 }
 
 
 void Client::sendTextMessage(QString my_key, QString chat_key, QString message)
 {
-    Serializer(m_socket).stream() << Chat::Request::SendTextMessage;
+    Serializer(m_socket).stream() << Chat::Request::SendTextMessage << my_key << chat_key << message;
 }
 
 
 void Client::getUserInfo(QString user_key)
 {
     Serializer(m_socket).stream() << Chat::Request::GetUserInfo;
+}
+
+void Client::getOnlineList()
+{
+    Serializer(m_socket).stream() << Chat::Request::GetOnlineList;
 }
