@@ -4,6 +4,11 @@
 #include "client.h"
 #include "serialization/serializer.h"
 
+void Client::onConnectionRestored()
+{
+    Serializer(m_socket).stream() << Chat::Request::RestoreConnection << m_key;
+}
+
 void Client::trySignUp(QString login, QString password, QString nick)
 {
     Serializer(m_socket).stream() << Chat::Request::TrySignUp << login << password << nick;

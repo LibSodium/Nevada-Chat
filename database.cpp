@@ -1,4 +1,5 @@
 #include "database.h"
+#include "server/server.h"
 
 QPair<QStringList, QStringList> DB_Requests::splitOnColumnsAndData(QStringList data, QString exp)
 {
@@ -150,63 +151,68 @@ Database::~Database()
 
 void Database::readData(QString request, QList<QStringList> &result, QStringList values)
 {
-  if(!request.isEmpty())
+    Server::Object->reading_data_from_database = true;
+    while(Server::Object->writing_data_to_database) QThread::msleep(1);
+    if(!request.isEmpty())
     {
-      m_query->prepare(request);
-      if(!values.isEmpty())
+        m_query->prepare(request);
+        if(!values.isEmpty())
         {
-          while(!values.isEmpty()) m_query->addBindValue(values.takeFirst());
+            while(!values.isEmpty()) m_query->addBindValue(values.takeFirst());
         }
-      if(m_query->exec())
+        if(m_query->exec())
         {
-          int n_columns = m_query->record().count();
-          QStringList row;
-          while(m_query->next())
+            int n_columns = m_query->record().count();
+            QStringList row;
+            while(m_query->next())
             {
-              row.clear();
-              for(int i = 0; i < n_columns; i++)
+                row.clear();
+                for(int i = 0; i < n_columns; i++)
                 {
-                  row << m_query->value(i).toString();
+                    row << m_query->value(i).toString();
                 }
-              result << row;
+                result << row;
             }
         }
-      else
+        else
         {
-          qDebug() << "database read data error ->" << m_query->lastError().text();
+            qDebug() << "database read data error ->" << m_query->lastError().text();
         }
     }
-  else
+    else
     {
-      qDebug() << "database read data error -> request is empty";
+        qDebug() << "database read data error -> request is empty";
     }
+    Server::Object->reading_data_from_database = false;
 }
 
 void Database::writeData(DBPair data)
 {
-  QString request = data.first;
-  QStringList values = data.second;
-  qDebug() << request << values;
-  if(!request.isEmpty())
+    Server::Object->writing_data_to_database = true;
+    while(Server::Object->reading_data_from_database) QThread::msleep(1);
+    QString request = data.first;
+    QStringList values = data.second;
+    if(!request.isEmpty())
     {
-      m_query->prepare(request);
-      if(!values.isEmpty())
+        m_query->prepare(request);
+        if(!values.isEmpty())
         {
-          while(!values.isEmpty()) m_query->addBindValue(values.takeFirst());
+            while(!values.isEmpty()) m_query->addBindValue(values.takeFirst());
         }
-      if(m_query->exec())
+        if(m_query->exec())
         {
-          qDebug() << "database write data success ->" << m_query->lastQuery();
+            qDebug() << "database write data success ->" << m_query->lastQuery();
         }
-      else
+        else
         {
-          qDebug() << "database write data error ->" << m_query->lastError().text();
+            qDebug() << "database write data error ->" << m_query->lastError().text();
         }
     }
-  else
+    else
     {
-      qDebug() << "database write data error -> request is empty";
+        qDebug() << "database write data error -> request is empty";
     }
+    Server::Object->writing_data_to_database = false;
 }
 
 bool Database::checkData(QString request)

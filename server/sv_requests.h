@@ -14,4 +14,5 @@ public:
     static void SendTextMessage   (Deserializer *read, SocketThread *thread = nullptr);
     static void GetUserInfo       (Deserializer *read, SocketThread *thread = nullptr);
     static void GetOnlineList     (Deserializer *read, SocketThread *thread = nullptr);
+    static void RestoreConnection (Deserializer *read, SocketThread *thread = nullptr);
 };

@@ -2,10 +2,6 @@
 #include "server/server.h"
 #include "client/image_provider.h"
 
-#include "database.h"
-#include "global.h"
-
-
 int main(int argc, char **argv)
 {
    QGuiApplication app(argc, argv);

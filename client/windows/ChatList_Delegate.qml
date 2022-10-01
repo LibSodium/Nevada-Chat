@@ -9,7 +9,7 @@ Item
     property string chat_name: "Example Name Example Name"
     property string last_message: "Example last message that can be very long and need to cut it"
     property string last_mess_time: "22:34"
-    property int unreaded_messages: 0
+    property int    unreaded_messages: 0
     property bool   is_online: false
     property alias  photo: photo
     

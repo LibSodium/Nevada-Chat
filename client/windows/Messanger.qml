@@ -8,7 +8,6 @@ Item
     property string chat_key
     property string chat_name
     property string last_seen: "last seen 32 minutes ago"
-
     Connections
     {
         target: cl
@@ -18,24 +17,34 @@ Item
             var time = message_data[4]
             list_model.append({m_text: message, m_mine: false, m_time: time})
         }
-    }
-    
-    function loadHistory(chat_key)
-    {
         
+        function onAcquireMessageHistory(history)
+        {
+            list_model.clear()
+            for(var i = 0; i < history.length; i++)
+            {
+                var key = history[i][0]
+                var mess = history[i][3]
+                var time = history[i][4]
+                
+                var sender = history[i][1]
+                var mine = false
+                
+                if(sender === my_key) mine = true
+                
+                list_model.append({m_text: mess, m_mine: mine, m_time: time})
+            }
+            list_view.positionViewAtEnd()
+        }
     }
-
+   
     function sendMessage(mess)
     {
         if(mess === "") return
         var time = cl.currentTime()
         list_model.append({m_text: mess, m_mine: true, m_time: time})
         cl.sendTextMessage(my_key, chat_key, mess)
-    }
-
-    function displayMessage(message_data)
-    {
-        
+        list_view.positionViewAtEnd()
     }
 
     function setChat(key, name, chat_photo)

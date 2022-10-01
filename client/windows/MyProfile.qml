@@ -4,6 +4,10 @@ import Backend
 Item
 {
     id: root
+    width: 500
+    height: 500
+    property string name: "Example Name"
+    property string bio: "Example bio"
     Rectangle
     {
         id: blackout
@@ -28,7 +32,7 @@ Item
         height: 500
         radius: 40
         color: "#3D4357"
-        ImageProvider
+        Rectangle//ImageProvider
         {
             radius: 30
             width: 250
@@ -37,13 +41,13 @@ Item
             anchors.left: parent.left
             anchors.topMargin: 25
             anchors.leftMargin: 25
-            source: ":/images/resources/images/user_default.png"
+            //source: ":/images/resources/images/user_default.png"
         }
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.66;height:480;width:640}
+    D{i:0;formeditorZoom:0.9}
 }
 ##^##*/

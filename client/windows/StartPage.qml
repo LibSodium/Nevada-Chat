@@ -33,6 +33,12 @@ Item
                 login_area.border_color = "red"
                 password_area.border_color = "red"
             }
+            else if(key === "-2")
+            {
+                login_area.text_area.clear()
+                password_area.text_area.clear()
+                already_online.visible = true
+            }
             else
             {
                 my_key = key
@@ -66,6 +72,9 @@ Item
                 onClicked:
                 {
                     focus = true
+                    login_area.border_color = "white"
+                    password_area.border_color = "white"
+                    nickname_area.border_color = "white"
                     sign_in = true
                 }
             }
@@ -86,6 +95,9 @@ Item
                 onClicked:
                 {
                     focus = true
+                    login_area.border_color = "white"
+                    password_area.border_color = "white"
+                    nickname_area.border_color = "white"
                     sign_in = false
                 }
             }
@@ -191,6 +203,12 @@ Item
                 cl.tryLogIn(login, password)
             }
         }
+    }
+    ServerPopup
+    {
+        id: already_online
+        text: "User is already online."
+        visible: false
     }
 }
 

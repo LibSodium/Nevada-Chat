@@ -17,6 +17,7 @@ class Client : public QObject
 public:
     Client();
     static Client *Object;
+    QString &key() {return m_key;}
     Q_INVOKABLE bool connect(QString ip, int port);
     Q_INVOKABLE void disconnect();
     Q_INVOKABLE QString currentTime(QString format = "dd.MM.yyyy hh:mm:ss");
@@ -27,10 +28,12 @@ private:
     ConnectionRestorer *m_restorer;
     QString server_ip;
     int server_port;
-
+    QString m_key;
+    
 public slots: // not from qml
     void onReadyRead();
     void onDisconnected();
+    void onConnectionRestored();
     
 public slots: // from qml
     void trySignUp(QString login, QString password, QString nick);
@@ -41,6 +44,7 @@ public slots: // from qml
     void sendTextMessage(QString my_key, QString chat_key, QString message);
     void getUserInfo(QString user_key);
     void getOnlineList();
+    //void changeAccountData(QString photo_path, QString login, QString password, QString nickname);
 
 signals: // connected to qml
     void signUpResult(QString key);

@@ -13,6 +13,7 @@ void SocketThread::onReadyRead()
     int action_id; read->stream() >> action_id;
     switch (action_id)
     {
+    case Chat::Request::RestoreConnection: {Requests::RestoreConnection(read, this); break;}
     case Chat::Request::TrySignUp:         {Requests::TrySignUp(read); break;}
     case Chat::Request::TryLogIn:          {Requests::TryLogIn(read, this); break;}
     case Chat::Request::GetChatList:       {Requests::GetChatList(read); break;}
@@ -67,6 +68,11 @@ void Requests::TryLogIn(Deserializer *read, SocketThread *thread)
         QString key = acquired_data[0][0];
         QString nick = acquired_data[0][1];
         thread->key() = key;
+        if(Server::Object->getOnlineList().contains(key))
+        {
+            Serializer(read->device()).stream() << Chat::Response::LogInResult << QString("-2");
+            return;
+        }
         Server::Object->insertOnlineUser(thread->descriptor(), key);
         Serializer(read->device()).stream() << Chat::Response::LogInResult << key << nick;
     }
@@ -87,7 +93,17 @@ void Requests::GetChatList(Deserializer *read, SocketThread *thread)
 
 void Requests::GetMessageHistory(Deserializer *read, SocketThread *thread)
 {
-    
+    QString user_key, chat_key;
+    read->stream() >> user_key >> chat_key;
+    Database *db = new Database(NULL, qint64(QThread::currentThreadId()), Server::Object->database_path + "/messages.db");
+    QString request = DB_Requests::select("messages", {}, {"*WHERE sender_key = '" + user_key +
+                                                           "' AND recipient_key = '" + chat_key +
+                                                           "' OR recipient_key = '" + user_key +
+                                                           "' AND sender_key = '" + chat_key + "'"});
+    DBData acquired_data;
+    db->readData(request, acquired_data);
+    delete db;
+    Serializer(read->device()).stream() << Chat::Response::AcquireMessageHistory << acquired_data;
 }
 
 void Requests::LogOut(Deserializer *read, SocketThread *thread)
@@ -129,4 +145,12 @@ void Requests::GetOnlineList(Deserializer *read, SocketThread *thread)
 {
     QStringList online_list = Server::Object->getOnlineList().keys();
     Serializer(read->device()).stream() << Chat::Response::AcquireOnlineList << online_list;
+}
+
+void Requests::RestoreConnection(Deserializer *read, SocketThread *thread)
+{
+    QString key;
+    read->stream() >> key;
+    if(key.isEmpty()) return;
+    Server::Object->insertOnlineUser(thread->descriptor(), key);
 }

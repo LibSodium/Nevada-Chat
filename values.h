@@ -11,7 +11,8 @@ enum Request
     LogOut,
     SendTextMessage,
     GetUserInfo,
-    GetOnlineList
+    GetOnlineList,
+    RestoreConnection
 };
 enum Response
 {

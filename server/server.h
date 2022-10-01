@@ -45,3 +45,4 @@ private:
     QMutex m_device_list_mutex;
     QMap<qintptr, SocketThread*> m_device_list;
 };
+

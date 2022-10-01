@@ -39,6 +39,7 @@ void Responses::LogInResult(Deserializer *read)
 {
     QString key, nick;
     read->stream() >> key >> nick;
+    if(key.size() != 2) Client::Object->key() = key;
     emit Client::Object->logInResult(key, nick);
 }
 
@@ -51,7 +52,9 @@ void Responses::AcquireChatList(Deserializer *read)
 
 void Responses::AcquireMessageHistory(Deserializer *read)
 {
-
+    QList<QStringList> history;
+    read->stream() >> history;
+    emit Client::Object->acquireMessageHistory(history);
 }
 
 void Responses::AcquireTextMessage(Deserializer *read)

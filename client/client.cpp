@@ -18,6 +18,7 @@ Client::Client()
     m_restorer = new ConnectionRestorer(m_socket, 2000);
     QObject::connect(m_restorer, SIGNAL(connectionRestored()), m_restorer, SLOT(stop()));
     QObject::connect(m_restorer, SIGNAL(connectionRestored()), this, SIGNAL(connectionRestored()));
+    QObject::connect(m_restorer, SIGNAL(connectionRestored()), this, SLOT(onConnectionRestored()));
     QObject::connect(m_restorer, SIGNAL(timeout()), m_restorer, SLOT(tryToRestoreConnection()));
     QObject::connect(m_tracker, SIGNAL(connectionLost()), m_restorer, SLOT(start()));
     QObject::connect(m_restorer, SIGNAL(timeout()), m_tracker, SLOT(start()));
